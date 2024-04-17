@@ -1,7 +1,7 @@
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native'
 import React, {useState} from 'react'
 import {COLORS, commonStyles} from '../../constants/theme'
-import {Header, PopularMoviesSection, TopRatedMoviesSection} from '../../components'
+import {Header, PopularMoviesSection} from '../../components'
 
 const Home = () => {
   return (
@@ -9,7 +9,6 @@ const Home = () => {
       <Header />
       <ScrollView style={[commonStyles.fillFullScreen]}>
         <PopularMoviesSection />
-        {/* <TopRatedMoviesSection /> */}
       </ScrollView>
     </SafeAreaView>
   )

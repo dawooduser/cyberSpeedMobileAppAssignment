@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native'
+import {FlatList, StyleSheet, Text, View} from 'react-native'
 import React, {memo} from 'react'
 import { FlashList } from "@shopify/flash-list";
 import { MovieCard, VerticalSpace } from '..';
@@ -7,7 +7,7 @@ import { commonStyles } from '../../constants/theme';
 const CardsSection = ({data, scrollEnabled, callFrom, onEndReachedCB}) => {
   return (
     <View style={[commonStyles.fillFullScreen]}>
-      <FlashList
+      <FlatList
       data={data}
       extraData={{}}
       numColumns={2}

@@ -2,7 +2,7 @@ import {StyleSheet, Text, View, Image, Touchable, TouchableOpacity} from 'react-
 import React from 'react'
 import {COLORS, FONTS, commonStyles} from '../../constants/theme'
 import {genericHeight} from '../../helper'
-import {AddToFavMovieBBtn, CardShareBtn, HorizontalSpace, VerticalSpace} from '..'
+import {  HorizontalSpace, VerticalSpace} from '..'
 import CardItemRow from './CardItemRow'
 import FastImage from 'react-native-fast-image'
 
@@ -11,7 +11,7 @@ const MovieCard = ({index, item, callFrom}) => {
   return (
     <View key={index} style={[commonStyles.fillFullScreen, styles.container]}>
       <FastImage
-        source={{uri: item['#IMG_POSTER'] || 'https://biggardenfurniture.com.au/wp-content/uploads/2018/08/img-placeholder.png'}}
+        source={{uri: item['#IMG_POSTER']}}
         resizeMode={FastImage.resizeMode.stretch}
         style={[commonStyles.fullWidth, {height: genericHeight(180)}]}
       />

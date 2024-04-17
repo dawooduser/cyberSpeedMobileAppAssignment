@@ -6,10 +6,11 @@ import axios, {
   } from 'axios';
   import {BASE_URL} from "@env"
   import { useSelector, useDispatch } from 'react-redux';
-  import { useEffect, useState } from 'react';
+  import { memo, useEffect, useMemo, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { hide, show } from '../../redux/reducers/spinner';
 import { showToastMsg } from '../../helper';
+console.log({BASE_URL})
   let http = axios.create({
     baseURL: BASE_URL,
     headers: {
@@ -23,7 +24,7 @@ import { showToastMsg } from '../../helper';
     return errResponse?.data ? errResponse.data?.errors[0] : '';
   };
   
-  const AxiosInstance = ({ children }) => {
+  const AxiosInstance = memo(({ children }) => {
     const dispatch = useDispatch()
     const [isSet, setIsSet] = useState(false);
     const navigate = useNavigation();
@@ -31,12 +32,14 @@ import { showToastMsg } from '../../helper';
   
     useEffect(() => {
       const reqInterceptor = (config) => {
+        console.log('reqInterceptor', config)
         dispatch(show())
         return config;
       };
   
       const resInterceptor = (response) => {
         dispatch(hide())
+        console.log('resInterceptor', response)
         return response;
       };
   
@@ -74,7 +77,7 @@ import { showToastMsg } from '../../helper';
       };
     }, [isSet, navigate]);
     return isSet && children;
-  };
+  })
   
   export default http;
   export { AxiosInstance };

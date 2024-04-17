@@ -6,6 +6,7 @@ import { COLORS, commonStyles } from '../../constants/theme'
 import { useDispatch } from 'react-redux'
 import { hide, show } from '../../redux/reducers/spinner'
 import { showToastMsg } from '../../helper'
+import { updateResult } from '../../redux/reducers/searchHistory'
 
 const Search = () => {
   const {searchMovies} = useHttp()
@@ -20,6 +21,7 @@ const Search = () => {
       let arr = res?.data?.description || []
       if (arr.length > 0 && arr.length > 10) arr.length = 10
       setSearchState((prev) => ({...prev, data: [...arr], query: text,}))
+      dispatch(updateResult([...arr]))
     }
   }, [searchState])
 

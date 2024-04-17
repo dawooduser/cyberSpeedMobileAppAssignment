@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Fav, Home, Search } from '../screens';
+import { Home, Search } from '../screens';
 import { useDispatch, useSelector } from 'react-redux';
 import { hide } from '../redux/reducers/spinner';
 import { AxiosInstance } from '../customHooks';
@@ -23,7 +23,6 @@ function App() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Search" component={Search} />
-        <Stack.Screen name="Fav" component={Fav} />
       </Stack.Navigator>
       </AxiosInstance>
     </NavigationContainer>
