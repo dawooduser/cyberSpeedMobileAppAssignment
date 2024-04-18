@@ -9,13 +9,16 @@ import {
   SearchViewHeader,
 } from '../index'
 
-const Header = ({mode, onSearch}) => {
+const Header = ({mode, onSearch, customAddContainerStyle}) => {
+  
   const HeaderModeModel = useCallback(() => {
     switch (mode) {
       case 'Home':
         return <HomeMode />
       case 'Search':
         return <SearchMode />
+        case 'MovieDetail':
+        return <MovieDetailMode />
       default:
         return null
     }
@@ -43,12 +46,20 @@ const Header = ({mode, onSearch}) => {
     ),
     [],
   )
+
+  const MovieDetailMode = useCallback(
+    () => (
+      <HeaderBackBtn />
+    ),
+    [],
+  )
+
   return (
     <View
       style={[
         commonStyles.fullWidth,
         commonStyles.rowDirectionCenter,
-        styles.container,
+        styles.container, customAddContainerStyle,
       ]}>
       <HeaderModeModel />
     </View>
@@ -58,6 +69,7 @@ Header.defaultProps = {
   mode: 'Home',
   onSearch: text =>
     console.log('SearchMode => SearchTextQueryHeader => ', text),
+  customAddContainerStyle: {}
 }
 export default memo(Header)
 

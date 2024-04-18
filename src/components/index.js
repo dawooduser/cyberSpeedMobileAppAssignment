@@ -6,6 +6,7 @@ import HorizontalSpace from "./views/HorizontalSpace"
 import LazyLoader from "./views/LazyLoader"
 import ListeningHeader from "./views/ListeningHeader"
 import MovieCard from "./views/MovieCard"
+import GenreItem from "./views/MovieDetail/GenreItem"
 import PopularMoviesSection from "./views/PopularMoviesSection"
 import SearchTextQueryHeader from "./views/SearchTextQueryHeader"
 import SearchViewHeader from "./views/SearchViewHeader"
@@ -17,5 +18,5 @@ export {
     LazyLoader, MovieCard, Header, HorizontalSpace, SearchViewHeader, CardsSection,
     PopularMoviesSection, HeaderBackBtn,  SearchTextQueryHeader,
     CardItemRow, VerticalSpace,
-    ListeningHeader
+    ListeningHeader, GenreItem
 }

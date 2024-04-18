@@ -1,15 +1,14 @@
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Home, Search } from '../screens';
-import { useDispatch, useSelector } from 'react-redux';
-import { hide } from '../redux/reducers/spinner';
-import { AxiosInstance } from '../customHooks';
+import * as React from 'react'
+import {NavigationContainer} from '@react-navigation/native'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
+import {Home, Search, MovieDetail} from '../screens'
+import {useDispatch, useSelector} from 'react-redux'
+import {hide} from '../redux/reducers/spinner'
+import {AxiosInstance} from '../customHooks'
 
+const Stack = createNativeStackNavigator()
 
-const Stack = createNativeStackNavigator();
-
-function App() {
+function App () {
   const dispatch = useDispatch()
   const spinner = useSelector(x => x.spinner)
   React.useEffect(() => {
@@ -20,13 +19,14 @@ function App() {
   return (
     <NavigationContainer>
       <AxiosInstance>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Search" component={Search} />
-      </Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name='Home' component={Home} />
+          <Stack.Screen name='Search' component={Search} />
+          <Stack.Screen name='MovieDetail' component={MovieDetail} />
+        </Stack.Navigator>
       </AxiosInstance>
     </NavigationContainer>
-  );
+  )
 }
 
-export default App;
+export default App

@@ -7,9 +7,12 @@ import CardItemRow from './CardItemRow'
 import FastImage from 'react-native-fast-image'
 
 
-const MovieCard = ({index, item, callFrom}) => {
+const MovieCard = ({index, item, callFrom, navigationToScreen}) => {
   return (
-    <View key={index} style={[commonStyles.fillFullScreen, styles.container]}>
+    <TouchableOpacity key={index} 
+    activeOpacity={1}
+    onPress={() => navigationToScreen(item['#IMDB_ID'])}
+    style={[commonStyles.fillFullScreen, styles.container]}>
       <FastImage
         source={{uri: item['#IMG_POSTER']}}
         resizeMode={FastImage.resizeMode.stretch}
@@ -24,7 +27,7 @@ const MovieCard = ({index, item, callFrom}) => {
           <Text style={[styles.cardTitleMoviename, FONTS.body3, commonStyles.fillFullScreen ]} numberOfLines={1}>{item['#TITLE']}</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

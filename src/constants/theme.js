@@ -6,6 +6,7 @@ export const COLORS = {
   primary: "#e8c545",
   secondary: "#070707",
   lightPrimaryColor: "#26252a",
+  lightColor: '#FCF9EC',
   primaryHard: "#357bd8",
   // colors
   black: "#1E1F20",
@@ -111,7 +112,13 @@ export const commonStyles = StyleSheet.create({
   },
   colorWhiteText: {
     color: 'white'
-  }
+  },
+  wrapContainer: {
+    flexWrap: 'wrap'
+  },
+  colorPrimaryText: {
+    color: COLORS.primary
+  },
 });
 
 
