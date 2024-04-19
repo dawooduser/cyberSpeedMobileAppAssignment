@@ -5,7 +5,6 @@ import axiosInstance from './useAxiosInstance'
 const useHttp = () => {
 
     const popularMovies = useCallback(async () => {
-        console.log('popularMovies')
         return axiosInstance.get(`/?q=racing&L=en_GB`)
     }, [])
 
@@ -13,9 +12,13 @@ const useHttp = () => {
         return axiosInstance.get(`/?q=${query}&L=en_GB`)
     }, [])
 
+    const getMovieDetailByID = useCallback(async (id='') => {
+        return axiosInstance.get(`/?tt=${id}`)
+    }, [])
+
     
     
-  return { popularMovies, searchMovies }
+  return { popularMovies, searchMovies, getMovieDetailByID }
 }
 
 export default useHttp

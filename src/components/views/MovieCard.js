@@ -4,7 +4,12 @@ import {COLORS, FONTS, commonStyles} from '../../constants/theme'
 import {genericHeight} from '../../helper'
 import {  HorizontalSpace, VerticalSpace} from '..'
 import CardItemRow from './CardItemRow'
-import FastImage from 'react-native-fast-image'
+import FastImage from 'react-native-fast-image';
+import { createImageProgress } from 'react-native-image-progress';
+import * as Progress from 'react-native-progress';
+
+
+const ImageContainer = createImageProgress(FastImage);
 
 
 const MovieCard = ({index, item, callFrom, navigationToScreen}) => {
@@ -13,8 +18,9 @@ const MovieCard = ({index, item, callFrom, navigationToScreen}) => {
     activeOpacity={1}
     onPress={() => navigationToScreen(item['#IMDB_ID'])}
     style={[commonStyles.fillFullScreen, styles.container]}>
-      <FastImage
-        source={{uri: item['#IMG_POSTER']}}
+      <ImageContainer
+      indicator={Progress.Pie}
+        source={{uri: item['#IMG_POSTER'], priority: FastImage.priority.high}}
         resizeMode={FastImage.resizeMode.stretch}
         style={[commonStyles.fullWidth, {height: genericHeight(180)}]}
       />

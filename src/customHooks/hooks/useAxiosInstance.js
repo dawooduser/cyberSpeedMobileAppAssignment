@@ -10,17 +10,16 @@ import axios, {
 import { useNavigation } from '@react-navigation/native';
 import { hide, show } from '../../redux/reducers/spinner';
 import { showToastMsg } from '../../helper';
-console.log({BASE_URL})
   let http = axios.create({
     baseURL: BASE_URL,
     headers: {
         "Content-Type": "application/json",
         "accept": 'application/json',
+        "Content-Encoding": "gzip, deflate, br",
       }
   });
   
   const parseErrorMessage = (errResponse) => {
-    console.log('errResoponse', errResponse);
     return errResponse?.data ? errResponse.data?.errors[0] : '';
   };
   
@@ -32,14 +31,12 @@ console.log({BASE_URL})
   
     useEffect(() => {
       const reqInterceptor = (config) => {
-        console.log('reqInterceptor', config)
         dispatch(show())
         return config;
       };
   
       const resInterceptor = (response) => {
         dispatch(hide())
-        console.log('resInterceptor', response)
         return response;
       };
   

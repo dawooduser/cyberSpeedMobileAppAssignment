@@ -1,45 +1,133 @@
-import { StyleSheet, Text, SafeAreaView, ImageBackground, View, ScrollView } from 'react-native'
-import React, { useState } from 'react'
-import { COLORS, FONTS, SIZES, commonStyles } from '../../constants/theme'
-import { GenreItem, Header, HorizontalSpace, VerticalSpace } from '../../components'
-import { genericRatio } from '../../helper'
-import { AntDesign } from '../../constants/icons'
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  ImageBackground,
+  View,
+  ScrollView,
+  ActivityIndicator,
+} from 'react-native'
+import React, {useCallback, useLayoutEffect, useState} from 'react'
+import {COLORS, FONTS, SIZES, commonStyles} from '../../constants/theme'
+import {
+  ActorsContainer,
+  ActorsItem,
+  GenreItem,
+  Header,
+  HorizontalSpace,
+  KeywordContainer,
+  ListeningHeader,
+  MovieHeader,
+  ReviewContainer,
+  VerticalSpace,
+} from '../../components'
+import {genericRatio} from '../../helper'
+import {AntDesign} from '../../constants/icons'
+import moment from 'moment'
+import {useHttp} from '../../customHooks'
+import {useDispatch, useSelector} from 'react-redux'
+import {moviePlaceHolder} from '../../constants/image'
+import {updateMovies} from '../../redux/reducers/MoviesDetail'
+import FastImage from 'react-native-fast-image';
+import { createImageProgress } from 'react-native-image-progress';
+import * as Progress from 'react-native-progress';
 
-const MovieDetail = () => {
-    const [movieDetailStates, setMovieDetailStates] = useState({
-        image: "https://www.ionos.co.uk/digitalguide/fileadmin/DigitalGuide/Teaser/pinterest-oder-instagramm-t.jpg",
-        movieName: 'Movie Name', description: "A documentary that follows undercover activists trying to stave off a man-made mass extinction.",
-        rating: '8.7', year: '2020',
-        genre: [ "Documentary", "Adventure", "News" ],
-    })
+
+const ImageContainer = createImageProgress(FastImage);
+
+const MovieDetail = ({route}) => {
+  const {getMovieDetailByID} = useHttp()
+  const dispatch = useDispatch()
+  const moviesList = useSelector(x => x.moviesDetail.movies)
+  const [movieDetailStates, setMovieDetailStates] = useState({})
+
+  useLayoutEffect(() => {
+    (async () => {
+      const id = route?.params?.id || 'tt1478839'
+      if (moviesList[id]) {
+        setMovieDetailStates({...movieDetailStates, ...moviesList[id]})
+        return
+      }
+      const res = await getMovieDetailByID(id)
+      const data = res?.data?.short || {}
+      const topContain = res?.data?.top || {}
+      let year = '-'
+      if (data) {
+        const {
+          image = '',
+          name = '',
+          description = '',
+          rating = '',
+          genre = [],
+          actor = [],
+          review = {},
+        } = data
+        let keywords = []
+        if (topContain) {
+          const _keywords = topContain?.keywords?.edges || []
+          keywords = _keywords.map(val => val.node.text)
+          year = topContain?.releaseYear?.year || '-'
+        }
+        setMovieDetailStates({
+          ...movieDetailStates,
+          image,
+          name,
+          description,
+          rating,
+          year,
+          genre,
+          keywords,
+          actor,
+          review,
+        })
+        dispatch(
+          updateMovies({
+            id,
+            data: {
+              image,
+              name,
+              description,
+              rating,
+              year,
+              genre,
+              keywords,
+              actor,
+              review,
+            },
+          }),
+        )
+      }
+    })()
+  }, [])
   return (
     <SafeAreaView style={[commonStyles.fillFullScreen, styles.container]}>
-        <ScrollView style={[commonStyles.fillFullScreen]}>
-        <ImageBackground style={styles.imageCover} source={{uri: movieDetailStates.image}} resizeMode={"stretch"}>
-            <View style={[commonStyles.fillFullScreen,]}>
-                <Header mode={"MovieDetail"} customAddContainerStyle={{backgroundColor: 'transparent'}} />
-            </View>
-        </ImageBackground>
-        <View style={[commonStyles.fullWidth, styles.commonPaddingHorizontal, {marginTop: 0}]}>
-            <View style={[{backgroundColor: 'red'}]}>
-                <View style={[commonStyles.rowDirectionCenter, commonStyles.spaceBetween,]}>
-                <Text style={[commonStyles.colorWhiteText, FONTS.h2]}>{movieDetailStates.movieName}</Text>
-                <View style={[commonStyles.rowDirectionCenter]}>
-                    <AntDesign name={'star'} color={COLORS.primary} size={genericRatio(25)} />
-                    <HorizontalSpace />
-                    <Text style={[commonStyles.colorWhiteText, FONTS.h1]}>{movieDetailStates.rating}</Text>
-                </View>
-                </View>
-                <Text style={[commonStyles.colorWhiteText, FONTS.body2]}>{movieDetailStates.year}</Text>
-                
-                <View style={[commonStyles.rowDirectionCenter, commonStyles.wrapContainer]}>
-                    {movieDetailStates.genre.map((gen, key) => <GenreItem item={gen} key={key} index={key} />)}
-                </View>
-                <VerticalSpace />
-                <Text style={[FONTS.body3, commonStyles.colorWhiteText]}>{movieDetailStates.description}</Text>
-            </View>
-        </View>
-        </ScrollView>
+      <ScrollView style={[commonStyles.fillFullScreen]}>
+        <ImageContainer
+          style={styles.imageCover}
+          onProgress={(e) => console.log({e})}
+          indicator={Progress.Pie}
+          source={
+            movieDetailStates.image
+              ? {uri: movieDetailStates.image, priority: FastImage.priority.high,}
+              : moviePlaceHolder
+          }
+          resizeMode={FastImage.resizeMode.stretch}>
+          <View style={[commonStyles.fillFullScreen]}>
+            <Header
+              mode={'MovieDetail'}
+              customAddContainerStyle={{backgroundColor: 'transparent'}}
+            />
+          </View>
+        </ImageContainer>
+
+        <MovieHeader data={movieDetailStates} />
+
+        <ActorsContainer actor={movieDetailStates?.actor || []} />
+
+        <ReviewContainer data={movieDetailStates.review} />
+
+        <KeywordContainer keywords={movieDetailStates?.keywords || []} />
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -47,15 +135,15 @@ const MovieDetail = () => {
 export default MovieDetail
 
 const styles = StyleSheet.create({
-    container: {
-      backgroundColor: COLORS.secondary
-    },
-    imageCover: {
-        ...commonStyles.fullWidth,
-        height: genericRatio(400)
-    },
-    commonPaddingHorizontal: {
-        paddingHorizontal: 10
-    }
-  })
-  
+  container: {
+    backgroundColor: COLORS.secondary,
+  },
+
+  imageCover: {
+    ...commonStyles.fullWidth,
+    height: genericRatio(400),
+  },
+  commonPaddingHorizontal: {
+    paddingHorizontal: 10,
+  },
+})

@@ -21,8 +21,8 @@ function App () {
       <AxiosInstance>
         <Stack.Navigator screenOptions={{headerShown: false}}>
           <Stack.Screen name='Home' component={Home} />
-          <Stack.Screen name='Search' component={Search} />
           <Stack.Screen name='MovieDetail' component={MovieDetail} />
+          <Stack.Screen name='Search' component={Search} />
         </Stack.Navigator>
       </AxiosInstance>
     </NavigationContainer>

@@ -2,10 +2,10 @@ import { StyleSheet, Text, View } from 'react-native'
 import React, { memo } from 'react'
 import { FONTS, commonStyles } from '../../constants/theme'
 
-const ListeningHeader = () => {
+const ListeningHeader = ({val}) => {
   return (
     <View style={[styles.container]}>
-      <Text style={[FONTS.h2, commonStyles.colorWhiteText]}>{'Popular Movies Section'}</Text>
+      <Text style={[FONTS.h2, commonStyles.colorWhiteText]}>{val}</Text>
     </View>
   )
 }
