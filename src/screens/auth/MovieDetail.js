@@ -21,7 +21,7 @@ import {
   ReviewContainer,
   VerticalSpace,
 } from '../../components'
-import {genericRatio} from '../../helper'
+import {genericRatio, showToastMsg} from '../../helper'
 import {AntDesign} from '../../constants/icons'
 import moment from 'moment'
 import {useHttp} from '../../customHooks'
@@ -35,7 +35,7 @@ import * as Progress from 'react-native-progress';
 
 const ImageContainer = createImageProgress(FastImage);
 
-const MovieDetail = ({route}) => {
+const MovieDetail = ({route, navigation}) => {
   const {getMovieDetailByID} = useHttp()
   const dispatch = useDispatch()
   const moviesList = useSelector(x => x.moviesDetail.movies)
@@ -49,6 +49,7 @@ const MovieDetail = ({route}) => {
         return
       }
       const res = await getMovieDetailByID(id)
+      console.warn('abc')
       const data = res?.data?.short || {}
       const topContain = res?.data?.top || {}
       let year = '-'
@@ -96,6 +97,9 @@ const MovieDetail = ({route}) => {
             },
           }),
         )
+      } else {
+        navigation.pop()
+        showToastMsg('error', 'request timeout',)
       }
     })()
   }, [])
@@ -104,7 +108,6 @@ const MovieDetail = ({route}) => {
       <ScrollView style={[commonStyles.fillFullScreen]}>
         <ImageContainer
           style={styles.imageCover}
-          onProgress={(e) => console.log({e})}
           indicator={Progress.Pie}
           source={
             movieDetailStates.image

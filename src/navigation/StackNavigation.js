@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator()
 function App () {
   const dispatch = useDispatch()
   const spinner = useSelector(x => x.spinner)
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     if (spinner) {
       dispatch(hide())
     }
