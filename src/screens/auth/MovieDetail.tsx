@@ -49,7 +49,6 @@ const MovieDetail = ({route, navigation}) => {
         return
       }
       const res = await getMovieDetailByID(id)
-      console.warn('abc')
       const data = res?.data?.short || {}
       const topContain = res?.data?.top || {}
       let year = '-'

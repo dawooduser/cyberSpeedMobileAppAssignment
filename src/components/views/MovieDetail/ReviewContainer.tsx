@@ -11,7 +11,7 @@ import { useTextDescriptionVisibility } from '../../../customHooks'
 
 const ReviewContainer = ({data}) => {
     const {textShown, lengthMore, toggleNumberOfLines, onTextLayout} = useTextDescriptionVisibility()
-    if (Object.keys(data).length === 0) return null
+    
   return (
     <View style={[ commonStyles.fullWidth, styles.commonPaddingHorizontal, ]}>
     <ListeningHeader val={'User Reviews'} />

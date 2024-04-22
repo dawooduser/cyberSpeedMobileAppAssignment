@@ -31,7 +31,7 @@ const Search = () => {
     <SafeAreaView style={[commonStyles.fillFullScreen, styles.container]}>
       <Header mode={'Search'} onSearch={AboutSearch} />
       <VerticalSpace/>
-      <CardsSection data={ListData} scrollEnabled />
+      <CardsSection data={ListData} scrollEnabled searchMode />
     </SafeAreaView>
   )
 }
