@@ -115,7 +115,7 @@ const MovieDetail = ({route, navigation}) => {
               : moviePlaceHolder
           }
           resizeMode={FastImage.resizeMode.stretch}>
-          <View style={[commonStyles.fillFullScreen]}>
+          <View style={[commonStyles.fillFullScreen, {backgroundColor: COLORS.backdrop}]}>
             <Header
               mode={'MovieDetail'}
               customAddContainerStyle={{backgroundColor: 'transparent'}}

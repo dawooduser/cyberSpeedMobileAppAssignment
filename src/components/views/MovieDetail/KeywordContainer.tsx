@@ -6,6 +6,7 @@ import ListeningHeader from '../ListeningHeader'
 import KeywordItems from './KeywordItems'
 
 const KeywordContainer = ({keywords = []}) => {
+  if(keywords.length === 0) return null
   return (
     <View
           style={[

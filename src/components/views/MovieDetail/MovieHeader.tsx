@@ -23,7 +23,7 @@ const MovieHeader = ({data}) => {
     ]}>
     <View style={[{}]}>
       <View
-        style={[  commonStyles.rowDirectionCenter, commonStyles.spaceBetween, ]}>
+        style={[  commonStyles.rowDirectionCenter, commonStyles.spaceBetween, {flexWrap: 'wrap'} ]}>
         <Text style={[commonStyles.colorWhiteText, FONTS.h2]}>
           {data?.name}
         </Text>

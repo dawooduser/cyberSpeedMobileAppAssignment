@@ -6,21 +6,32 @@ import { COLORS, FONTS, commonStyles } from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 import { screenNavigation } from '../../helper';
 
-const CardsSection = ({data, scrollEnabled, callFrom, onEndReachedCB}) => {
+const CardsSection = ({data, scrollEnabled, callFrom, onEndReachedCB, searchMode}) => {
   const navigaiton = useNavigation()
   const screenNavigationToDetail = id => screenNavigation(navigaiton, "MovieDetail", {id})
   const showEmptyListView = useCallback(() => {
-    if (data.length != 0) return null;  
-    return (
-      <View style={[commonStyles.fullWidth, commonStyles.center, {padding: 10}]}>
-        <View style={{padding: 10, backgroundColor: COLORS.lightPrimaryColor}}>
-        <Text style={[commonStyles.colorWhiteText, FONTS.body3]}>{"This website has been temporarily rate limited"}</Text>
-        <VerticalSpace />
-        <Text style={[commonStyles.colorWhiteText, FONTS.body3, commonStyles.textFamily700]}>{"This API Serivce error, API HITS Limited"}</Text>
-        <Text style={{color: COLORS.primary}} onPress={() => Linking.openURL('https://search.imdbot.workers.dev/?q=racing&L=en_GB')}>click here to check</Text>
+    if (data.length != 0) return null;
+    if (!searchMode) {
+      return (
+        <View style={[commonStyles.fullWidth, commonStyles.center, {padding: 10}]}>
+          <View style={{padding: 10, backgroundColor: COLORS.lightPrimaryColor}}>
+          <Text style={[commonStyles.colorWhiteText, FONTS.body3]}>{"This website has been temporarily rate limited"}</Text>
+          <VerticalSpace />
+          <Text style={[commonStyles.colorWhiteText, FONTS.body3, commonStyles.textFamily700]}>{"This API Serivce error, API HITS Limited"}</Text>
+          <Text style={{color: COLORS.primary}} onPress={() => Linking.openURL('https://search.imdbot.workers.dev/?q=racing&L=en_GB')}>click here to check</Text>
+          </View>
         </View>
-      </View>
-     );
+       )
+    } else {
+      return (
+        <View style={[commonStyles.fullWidth, commonStyles.center, {padding: 10}]}>
+          <View style={{padding: 10, backgroundColor: COLORS.lightPrimaryColor}}>
+          <Text style={[commonStyles.colorWhiteText, FONTS.body3]}>{"Search Result is zero"}</Text>
+          </View>
+        </View>
+       )
+    }
+    
   }, [])
   return (
     <View style={[commonStyles.fillFullScreen]}>
@@ -39,6 +50,7 @@ const CardsSection = ({data, scrollEnabled, callFrom, onEndReachedCB}) => {
   )
 }
 CardsSection.defaultProps = {
+  searchMode: false,
   data: [],
   scrollEnabled: false,
   callFrom: 'Home',

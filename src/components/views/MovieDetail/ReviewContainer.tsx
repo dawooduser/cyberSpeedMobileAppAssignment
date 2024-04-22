@@ -11,6 +11,7 @@ import { useTextDescriptionVisibility } from '../../../customHooks'
 
 const ReviewContainer = ({data}) => {
     const {textShown, lengthMore, toggleNumberOfLines, onTextLayout} = useTextDescriptionVisibility()
+    if (Object.keys(data).length === 0) return null
   return (
     <View style={[ commonStyles.fullWidth, styles.commonPaddingHorizontal, ]}>
     <ListeningHeader val={'User Reviews'} />
@@ -27,7 +28,7 @@ const ReviewContainer = ({data}) => {
           />
           <HorizontalSpace />
           <Text style={[commonStyles.colorWhiteText, FONTS.body4]}>
-           {`${data?.reviewRating.ratingValue}/${data?.reviewRating.bestRating}`}
+           {`${data?.reviewRating?.ratingValue || '-'}/${data?.reviewRating?.bestRating || '-'} `}
           </Text>
       </View>
       </View>
