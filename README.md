@@ -48,7 +48,7 @@ We have another github repo which have same features but in desktop plateform
 here's the link
 https://github.com/dawooduser/cyberSpeedMElectronReactAppAssignment
 Framwork using Electron js + React js
-all desktop plateform capabilities like MAC, Window and Linux
+all desktop plateform supported like MAC, Window and Linux
 
 # Troubleshooting
 
