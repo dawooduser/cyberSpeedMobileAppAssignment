@@ -43,12 +43,13 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
-## Bonus 
-We have another github repo which have same features but in desktop plateform
-here's the link
-https://github.com/dawooduser/cyberSpeedMElectronReactAppAssignment
-Framwork using Electron js + React js
-all desktop platform support like MAC, Windows and Linux
+## BONUS FEATURES 
+- SDK Usage in React.js Project
+- Demonstrate the usage of the developed SDK in a React.js project.
+- Integrate the SDK into a basic React.js application to fetch and display movie data.
+- Implement optimizations in the state manager solution to improve performance and efficiency.
+  
+React & Electron https://github.com/dawooduser/cyberSpeedMElectronReactAppAssignment
 
 # Troubleshooting
 
