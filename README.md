@@ -43,6 +43,12 @@ If everything is set up _correctly_, you should see your new app running in your
 
 This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
 
+## Bonus 
+We have another github repo which have same features but in desktop plateform
+here's the link
+https://github.com/dawooduser/cyberSpeedMElectronReactAppAssignment
+Framwork using Electron js + React js
+all desktop plateform capabilities like MAC, Window and Linux
 
 # Troubleshooting
 
